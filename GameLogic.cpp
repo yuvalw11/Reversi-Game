@@ -14,8 +14,9 @@ GameLogic::GameLogic(Board newBoard) {
 	this->board = newBoard;
 }
 
-bool GameLogic::canAssign(char player, Cell cellToCheck) const {
-	vector<Cell> possibleMovesVec = possibleCellsToAssign(board, player);
+bool GameLogic::canAssign(char player, Cell cellToCheck) {
+	//vector<Cell> possibleMovesVec = possibleCellsToAssign(board, player);
+	vector<Cell> possibleMovesVec = board.possibleCellsToAssign(player);
 
 	for (unsigned i = 0; i < possibleMovesVec.size(); i++) {
 		Cell currentCell = Cell(possibleMovesVec[i].getX(),
@@ -27,8 +28,8 @@ bool GameLogic::canAssign(char player, Cell cellToCheck) const {
 	return false;
 }
 
-void GameLogic::printPossibleCells(char player) const {
-	vector<Cell> possibleMovesVec = possibleCellsToAssign(board, player);
+void GameLogic::printPossibleCells(char player) {
+	vector<Cell> possibleMovesVec = board.possibleCellsToAssign(player);
 	cout << "Player: " << player << " ,Your Possible Moves are: ";
 	for (unsigned i = 0; i < possibleMovesVec.size(); i++) {
 		possibleMovesVec[i].printCell();

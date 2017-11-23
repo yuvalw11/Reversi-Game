@@ -35,7 +35,7 @@ void CellsSwitcher::slantSwitch(Board *b, Cell start, Cell end,
 
 	if (start.getX() > end.getX() && start.getY() < end.getY()) {
 		for (int row = start.getX(), col = start.getY();
-				row >= end.getX() && col <= end.getY(); row--, col++) { // check if col <= end.getY() or without =
+				row >= end.getX() && col <= end.getY(); row--, col++) {
 			b->setCell(row, col, replaceTo);
 		}
 	} else if (start.getX() > end.getX() && start.getY() > end.getY()) {

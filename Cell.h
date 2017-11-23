@@ -17,6 +17,12 @@ using namespace std;
 class Cell {
 public:
 
+	Cell() {
+		x = 0;
+		y = 0;
+		sign = ' ';
+		cout << "Don't initial Cell() by its default!" << endl;
+	}
 	/**
 	 * constructor method.
 	 * Gets board places x,y and a char (X, O) to place in.

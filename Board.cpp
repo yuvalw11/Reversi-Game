@@ -12,6 +12,7 @@
 #include <string.h>
 #include <sstream>
 #include "CellsSwitcher.h"
+#include "vector"
 
 /**
  * Constructor function to Board, that initializes him according his
@@ -167,7 +168,6 @@ bool Board::colSequenceCheck(char player, Cell emptyCellToCheck,
 				continue;
 			} else if (tempUpperNext == player) {
 				if (wantToChange) {
-					//CellsSwitcher::colSwitch(this, Cell(i+1,emptyCellToCheck.getY() +1 ), emptyCellToCheck, player);
 					for (int h = i; h <= emptyCellToCheck.getX(); h++) {
 						this->setCell(h, emptyCellToCheck.getY(), player);
 					}
@@ -270,7 +270,6 @@ bool Board::slantSequenceCheck(char player, Cell emptyCellToCheck,
 	// althought maybe it's also possible.
 }
 
-// ADD WHATOCHANGE OPTION!!!!!
 bool Board::leftSlantSequenceCheck(char player, Cell emptyCellToCheck,
 		bool wantToChange) {
 	char secondPlayer = Cell::returnOtherSign(player);
@@ -308,7 +307,6 @@ bool Board::leftSlantSequenceCheck(char player, Cell emptyCellToCheck,
 				continue;
 			} else if (tempBelowNext == player) {
 				if (wantToChange) {
-					// change for slant // CellsSwitcher::rowSwitch(this, Cell(emptyCellToCheck.getX()+1, i+1), emptyCellToCheck, player);
 					CellsSwitcher::slantSwitch(this, Cell(row + 1, col + 1),
 							emptyCellToCheck, player);
 				}
@@ -331,7 +329,7 @@ void Board::enterToBoard(char signToAdd, int row, int col) {
 	}
 }
 
-bool Board::isCellEmpty(Cell cell) const {
+bool Board::isCellEmpty(Cell cell) {
 	char current = this->boardArray[cell.getX()][cell.getY()];
 	if (current != 'X' && current != 'x' && current != 'o' && current != 'O') {
 		return true;
@@ -382,4 +380,46 @@ void Board::confirmInitialize() {
 			this->boardArray[r][c] = dummy;
 		}
 	}
+}
+
+int Board::howMuchCells(char playerToCheck) {
+	int counter = 0;
+	for (int r = 0; r < RowNumber; r++) {
+		for (int c = 0; c < colNumber; c++) {
+			if (this->boardArray[r][c] == playerToCheck) {
+				counter += 1;
+			}
+		}
+	}
+	return counter;
+}
+
+
+	vector<Cell> Board::possibleCellsToAssign(char player) {
+		vector<Cell> vecToReturn;
+		// passing on the all cells in our board.
+		for (int r = 1; r <= RowNumber; r++) {
+			for (int c = 1; c <= colNumber; c++) {
+				Cell currentCell(r, c);
+				if (isCellEmpty(currentCell)
+						&& canToAssign(player, currentCell)) {
+					// add it to our vector with +1 because we want to show to our user
+					// the possible cells from (1..8, 1..8) and not from (0..7, 0..7).
+					vecToReturn.push_back(
+							Cell(currentCell.getX() + 2,
+									currentCell.getY() + 2)); // +2 because we lower twice when we created Cell using its constructor.
+				}
+			}
+		}
+		return vecToReturn;
+	}
+
+Board Board::copyConstructor(Board& toCopy) {
+	Board b;
+	for (int i = 0; i < RowNumber; i++) {
+		for (int c = 0; c<colNumber; c++) {
+			b.boardArray[i][c] = toCopy.boardArray[i][c];
+		}
+	}
+	return b;
 }
