@@ -65,9 +65,19 @@ void std::GameRunner::playNextMove() {
 		}
 	} else {
 		gameLogic.printPossibleCells(this->currentPlayer);
-		Cell userInput = getUserInput(); // gets input from the user
+
+		// RETURN IT LATER:
+		/*Cell userInput = getUserInput(); // gets input from the user
 		gameLogic.inputAssignManager(this->currentPlayer, userInput);
-		this->board = *gameLogic.getBoard();
+		this->board = *gameLogic.getBoard();*/
+
+		// lets check the AI player
+		AIPlayer AI('O');
+		//Player player = AI;
+
+		//AI.makesM(&board, AI.getPlayerSign()); // checks here
+		AI.makesM(&board, 'O'); // checks here
+
 		this->board.printBoard();
 
 		// after he made his turn, switch the current player.
@@ -76,7 +86,6 @@ void std::GameRunner::playNextMove() {
 }
 
 void std::GameRunner::run() {
-	// WRITE THIS FUNCTION. Using canToContinue while loop, while (canTOC..).
 
 	this->gameLogic = GameLogic(Board());
 	while (canToContinue()) {

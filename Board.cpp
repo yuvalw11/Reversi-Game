@@ -414,8 +414,9 @@ int Board::howMuchCells(char playerToCheck) {
 		return vecToReturn;
 	}
 
-Board Board::copyConstructor(Board& toCopy) {
+Board Board::copyConstructor(Board toCopy) {
 	Board b;
+	b.confirmInitialize();
 	for (int i = 0; i < RowNumber; i++) {
 		for (int c = 0; c<colNumber; c++) {
 			b.boardArray[i][c] = toCopy.boardArray[i][c];

@@ -171,7 +171,7 @@ public:
 	 * copy constructor for board, in order do not change him
 	 * while we check the mini-max algorithem.
 	 */
-	Board copyConstructor(Board &toCopy);
+	Board copyConstructor(Board toCopy);
 
 	/**
 	 * returns vector of cells that each one represents an empty cell that
