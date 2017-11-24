@@ -67,21 +67,28 @@ void std::GameRunner::playNextMove() {
 		gameLogic.printPossibleCells(this->currentPlayer);
 
 		// RETURN IT LATER:
-		/*Cell userInput = getUserInput(); // gets input from the user
+		Cell userInput = getUserInput(); // gets input from the user
 		gameLogic.inputAssignManager(this->currentPlayer, userInput);
-		this->board = *gameLogic.getBoard();*/
+		this->board = *gameLogic.getBoard();
+
+		this->board.printBoard();
 
 		// lets check the AI player
 		AIPlayer AI('O');
 		//Player player = AI;
 
 		//AI.makesM(&board, AI.getPlayerSign()); // checks here
-		AI.makesM(&board, 'O'); // checks here
+		//AI.makesM(&board, 'O'); // checks here
+		//this->board = *gameLogic.getBoard();
 
+		userInput = AI.returnAICell(board, 'O'); // gets input from the user
+		cout << "AI Played: (" << userInput.getX() + 1 << " ," << userInput.getY() + 1 << ")"<<endl;
+		gameLogic.inputAssignManager(AI.getAIplayerSign(), userInput);
+		this->board = *gameLogic.getBoard();
 		this->board.printBoard();
 
 		// after he made his turn, switch the current player.
-		this->switchCurrentPlayer();
+		//this->switchCurrentPlayer();
 	}
 }
 

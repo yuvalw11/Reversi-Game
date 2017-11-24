@@ -35,7 +35,6 @@ public:
 	 */
 	virtual void makesMove(Board *board, char playerSign) = 0;
 
-
 private:
 	char playerSign; // the sign of this player - X OR O.
 

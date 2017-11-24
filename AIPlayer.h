@@ -21,6 +21,8 @@ public:
 
 	// REMOVE it!!!!!!!!!!!!!!!!
 	void makesM(Board *board, char playerSign);
+	Cell returnAICell(Board &board, char playerSign);
+
 
 
 	/**
@@ -38,6 +40,7 @@ public:
 	char getAIplayerSign() {
 		return playerSign;
 	}
+
 
 	/**
 	 * Part 2B in the mini-max pasudo code.

@@ -22,6 +22,12 @@ void AIPlayer::makesM(Board *board, char playerSign) {
 	cout << "AI Played: (" << c.getX() + 1 << ", " << c.getY() + 1 << ")"<<endl;
 }
 
+Cell AIPlayer::returnAICell(Board &board, char playerSign) {
+	MiniMaxCell AINextMove = AIPlayer::returnNextMove(board, playerSign);
+	Cell c = AINextMove.getCellToPut();
+	return c; // the cell that choosed by the AI player.
+}
+
 /**
  * This function takes care to parts 2b and 2c in the pesudo code.
  * Gets:
