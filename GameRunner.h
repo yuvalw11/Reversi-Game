@@ -10,6 +10,7 @@
 #include "Cell.h"
 #include "Board.h"
 #include "GameLogic.h"
+#include "AIPlayer.h"
 
 namespace std {
 

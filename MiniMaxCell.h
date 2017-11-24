@@ -16,7 +16,7 @@ namespace std {
 class MiniMaxCell {
 public:
 
-	//MiniMaxCell(){}
+	MiniMaxCell(){gradeForThisCell = 1000;}
 	MiniMaxCell(Cell cell, int gradeForInputCell);
 
 	/**
@@ -39,6 +39,13 @@ public:
 	void replace(Cell cell, int gradeForInputCell) {
 		this->cellToPut = Cell(cell.getX() + 1, cell.getY() + 1);
 		this->gradeForThisCell = gradeForInputCell;
+	}
+
+	/**
+	 * Replace with the same type object but diffrent one.
+	 */
+	void replace(MiniMaxCell other) {
+		this->replace(other.getCellToPut(), other.getGradeForThisCell());
 	}
 
 private:

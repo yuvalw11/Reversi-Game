@@ -17,6 +17,7 @@
 using namespace std;
 
 int main() {
+
 	Board b;
 	b.printBoard();
 

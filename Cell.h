@@ -21,7 +21,7 @@ public:
 		x = 0;
 		y = 0;
 		sign = ' ';
-		cout << "Don't initial Cell() by its default!" << endl;
+		//cout << "Don't initial Cell() by its default!" << endl;
 	}
 	/**
 	 * constructor method.

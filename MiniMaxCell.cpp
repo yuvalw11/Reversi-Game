@@ -11,7 +11,7 @@ namespace std {
 
 MiniMaxCell::MiniMaxCell(Cell cell, int gradeForInputCell) {
 	this->gradeForThisCell = gradeForInputCell;
-	this->cellToPut = Cell(cell.getX() + 1, cell.getY() + 1);
+	this->cellToPut = Cell(cell.getX(), cell.getY(), ' ');
 }
 
 }

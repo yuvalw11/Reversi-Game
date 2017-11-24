@@ -23,7 +23,7 @@ public:
 	 * returns the sign of the player - X or 0.
 	 */
 	char getPlayerSign() { return playerSign; }
-	virtual ~Player() = 0;
+	virtual ~Player(){}
 
 	/**
 	 * virtual method, makes a move in the board.
@@ -33,11 +33,13 @@ public:
 	 * char playerSign - the sign of the player who makes the move.
 	 *
 	 */
-	virtual void makesMove(Board board, char playerSign) = 0;
-
+	virtual void makesMove(Board *board, char playerSign) = 0;
 
 private:
 	char playerSign; // the sign of this player - X OR O.
 
 #endif /* PLAYER_H_ */
 };
+
+inline void Player::makesMove(Board* board, char playerSign) {
+}

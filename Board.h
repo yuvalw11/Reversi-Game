@@ -171,7 +171,7 @@ public:
 	 * copy constructor for board, in order do not change him
 	 * while we check the mini-max algorithem.
 	 */
-	Board copyConstructor(Board &toCopy);
+	Board copyConstructor(Board toCopy);
 
 	/**
 	 * returns vector of cells that each one represents an empty cell that
@@ -182,6 +182,22 @@ public:
 	 *
 	 */
 	vector<Cell> possibleCellsToAssign(char player);
+
+	/**
+	 * char player -> X\O, the sign of the current player.
+	 * Cell input  -> the input that the player wrote,
+	 * here we assume that his choose
+	 * is valid.
+	 */
+	void inputAssignManager(char player, Cell input);
+
+	/**
+	 * This method checks if the input player can to assign the input cell
+	 * in our board.
+	 * if it's possible return true. Otherwise -> false.
+	 * Cell cellToCheck borders are from: (0..7, 0..7) after the constructor.
+	 */
+	bool canAssign(char player, Cell cellToCheck);
 
 private:
 	// array that represents our board.
