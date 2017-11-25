@@ -14,7 +14,9 @@ class Player {
 
 public:
 
-	Player(){playerSign = ' ';} // default constructor.
+	Player() {
+		playerSign = ' ';
+	} // default constructor.
 	Player(char player) {
 		playerSign = player;
 	}
@@ -22,24 +24,33 @@ public:
 	/**
 	 * returns the sign of the player - X or 0.
 	 */
-	char getPlayerSign() { return playerSign; }
-	virtual ~Player(){}
+	char getPlayerSign() {
+		return playerSign;
+	}
+
+	void setPlayerSign(char playerSign) {
+			this->playerSign = playerSign;
+		}
+
+	virtual ~Player() {
+	}
 
 	/**
-	 * virtual method, makes a move in the board.
+	 * virtual method, return the cell that selected,
+	 * by the human player or the AI player.
 	 * This function is diffrent between the AI player and the
 	 * human player, therefore we use a virual function.
 	 * Gets:
 	 * char playerSign - the sign of the player who makes the move.
 	 *
 	 */
-	virtual void makesMove(Board *board, char playerSign) = 0;
+	virtual Cell chooseCell(Board *board, char playerSign) = 0;
+
+
 
 private:
 	char playerSign; // the sign of this player - X OR O.
-
-#endif /* PLAYER_H_ */
 };
 
-inline void Player::makesMove(Board* board, char playerSign) {
-}
+#endif /* PLAYER_H_ */
+

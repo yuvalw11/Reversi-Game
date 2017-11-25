@@ -17,12 +17,14 @@
 
 namespace std {
 
-class AIPlayer {
+class AIPlayer : public Player{
 public:
 
 	// REMOVE it!!!!!!!!!!!!!!!!
 	void makesM(Board *board, char playerSign);
 	Cell returnAICell(Board &board, char playerSign);
+	Cell chooseCell(Board *board, char playerSign);
+
 
 
 
@@ -32,8 +34,11 @@ public:
 	 * char pSign - the sign of the player.
 	 */
 	AIPlayer(char Psign) {
+		Player::setPlayerSign(Psign); // very important
 		playerSign = Psign;
 	}
+
+
 
 	/**
 	 * returns the sign of the AI player.

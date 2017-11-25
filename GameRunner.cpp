@@ -9,43 +9,20 @@
 
 namespace std {
 
-GameRunner::GameRunner(Board b, char player) {
+
+GameRunner::GameRunner(Board b, Player& firstP, Player& secondPl,
+		char startingPlayer) {
 	board = b;
 	GameLogic gameLogic(b);
-	currentPlayer = player;
+	currentPlayer = startingPlayer;
+	firstPlayer = &firstP;
+	secondPlayer = &secondPl;
 }
-
-Cell GameRunner::getUserInput() {
-
-	Cell inputCell = askInput();
-
-	if (!checkValidInput(inputCell)) {
-		do {
-			if (!gameLogic.canAssign(this->currentPlayer, inputCell)) {
-				cout << "\nYou didn't choose from your options.\n";
-			}
-			cout << "Your choice doesn't legal\n";
-			this->gameLogic.printPossibleCells(this->currentPlayer);
-			inputCell = askInput();
-		} while (!checkValidInput(inputCell));
-	}
-
-//cout << "MY NEW PRINT: \n";
-//this->board.printBoard();
-	return inputCell;
-}
-
-bool GameRunner::checkValidInput(Cell inputCell) {
-	return inputCell.isEmptyCell() && inputCell.isValid()
-			&& gameLogic.canAssign(this->currentPlayer, inputCell);
-}
-
-} /* namespace std */
 
 // come to this function with the knowlenge that we can continue in the game.
 // It means that at least for one player has a possible move to do.
-void std::GameRunner::playNextMove() {
-
+void std::GameRunner::playNextMove(Player &playerCurrentTurn) {
+	this->currentPlayer = playerCurrentTurn.getPlayerSign();
 	if (!this->gameLogic.hasPossibleMoves(this->currentPlayer)) {
 		string userPassesChecking;
 		cout << "\n No Possible Moves. Play passes back to the other player.\n "
@@ -53,44 +30,24 @@ void std::GameRunner::playNextMove() {
 		cin >> userPassesChecking;
 		if (userPassesChecking.length() != 0) {
 			// switch the turn to the other player.
-			this->switchCurrentPlayer();
-
-			Cell userInput = getUserInput(); // gets input from the user
+			//this->switchCurrentPlayer();
+			cout << "\nOkay, Your turn was passed to the other player, that has moves\n";
+			cin.ignore();
+			return;
+			Cell userInput = playerCurrentTurn.chooseCell(&board,
+					currentPlayer); // gets input from the user
 			gameLogic.inputAssignManager(this->currentPlayer, userInput);
 			this->board = *gameLogic.getBoard();
 			this->board.printBoard();
-
-			// after he made his turn, switch the current player.
-			this->switchCurrentPlayer();
 		}
 	} else {
-		gameLogic.printPossibleCells(this->currentPlayer);
+		//gameLogic.printPossibleCells(this->currentPlayer);
 
-		// RETURN IT LATER:
-		Cell userInput = getUserInput(); // gets input from the user
+		Cell userInput = playerCurrentTurn.chooseCell(&board,
+				this->currentPlayer);
 		gameLogic.inputAssignManager(this->currentPlayer, userInput);
 		this->board = *gameLogic.getBoard();
-
 		this->board.printBoard();
-
-		// lets check the AI player
-		AIPlayer AI('O');
-		//Player player = AI;
-
-		//AI.makesM(&board, AI.getPlayerSign()); // checks here
-		//AI.makesM(&board, 'O'); // checks here
-		//this->board = *gameLogic.getBoard();
-
-		userInput = AI.returnAICell(board, 'O'); // gets input from the user
-		gameLogic.inputAssignManager(AI.getAIplayerSign(), userInput);
-
-
-		cout << "AI Played: (" << userInput.getX() + 1 << " ," << userInput.getY() + 1 << ")"<<endl;
-		this->board = *gameLogic.getBoard();
-		this->board.printBoard();
-
-		// after he made his turn, switch the current player.
-		//this->switchCurrentPlayer();
 	}
 }
 
@@ -98,7 +55,11 @@ void std::GameRunner::run() {
 
 	this->gameLogic = GameLogic(Board());
 	while (canToContinue()) {
-		playNextMove();
+		Player &currentPlayer = getCurrentPlayerTurn();
+		playNextMove(currentPlayer);
+		// after he made his turn, switch the current player.
+		this->switchCurrentPlayer();
+
 	}
 	// print who won.
 	this->board.whoWon();
@@ -121,16 +82,31 @@ bool std::GameRunner::canToContinue() {
 
 }
 
-Cell std::GameRunner::askInput() {
-	string lineInput; //, secondInput;
-	getline(cin, lineInput);
-	size_t temp = lineInput.find(",");
-	string r = lineInput.substr(0, temp);
-	string s = lineInput.substr(temp + 1);
-	int inputRow = atoi(r.c_str());
-	int inputCol = atoi(s.c_str());
-	Cell inputCell(inputRow, inputCol);
-	return inputCell;
+int GameRunner::menu() {
+	int input;
+	string lineInput;
+
+		cout << " --- Welcome To Our Game --- \n";
+		cout << "Ofir Ben-Shoham & Yuval Weinstein\n";
+		cout << "Please choose your game option (Press 1 or 2 and enter): \n\n";
+		cout << "1) If you want to play vs other Human Person\n";
+		cout << "2) If you want to play vs AI player ( But..he is very smart :) ) \n";
+		do {
+			getline (std::cin,lineInput);
+			if (cin.fail() || lineInput.length() != 1) {
+				cout << "Doesn't legal chioce. Choose 1 or 2, then press enter" << std::endl;
+				cin.clear(); // reset the failed state
+			}
+		} while (cin.fail() || lineInput.length() != 1);
+
+		input = atoi(lineInput.c_str());
+
+		if (input == 1) {
+			cout << "\n No problem, You will play vs Human Player\n";
+		} else {
+			cout << "\n No problem, You will play vs AI Player\n";
+		}
+		return input;
 }
 
 void std::GameRunner::switchCurrentPlayer() {
@@ -140,3 +116,13 @@ void std::GameRunner::switchCurrentPlayer() {
 		currentPlayer = 'X'; // because it was 'O'.
 	}
 }
+}
+
+Player& std::GameRunner::getCurrentPlayerTurn() {
+	if (currentPlayer == 'x' || currentPlayer == 'X') {
+		return *firstPlayer; // in order to prevent from changing it.
+	}
+	return *secondPlayer; // safer passing by & and not a pointer that can be changed.
+}
+
+
