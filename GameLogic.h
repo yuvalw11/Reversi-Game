@@ -8,12 +8,11 @@
 
 #ifndef GAMELOGIC_H_
 #define GAMELOGIC_H_
-#include "PlayerInterface.h"
 #include "Board.h"
 
 namespace std {
 
-class GameLogic: public PlayerInterface {
+class GameLogic {
 public:
 
 	/**
@@ -46,7 +45,8 @@ public:
 	 * Otherwise-> false.
 	 */
 	bool hasPossibleMoves(char player) {
-		return !possibleCellsToAssign(board, player).empty();
+		//return !possibleCellsToAssign(board, player).empty();
+		return !board.possibleCellsToAssign(player).empty();
 	}
 
 	/**
