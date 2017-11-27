@@ -96,6 +96,10 @@ public:
 		return x == other.getX() && y == other.getY();
 	}
 
+	bool operator ==(Cell c) {
+		return (this->x == c.getX()) && (this->y == c.getY());
+	}
+
 private:
 	// x, y values of the current cell
 	int x, y;
