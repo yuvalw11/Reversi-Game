@@ -4,7 +4,6 @@
 #include "Board.h"
 #include "Cell.h"
 #include <vector>
-#include "Cell.h"
 
 Board createBoard1ForExample();
 Board createBoard2ForExample();

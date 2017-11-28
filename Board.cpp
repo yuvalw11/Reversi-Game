@@ -364,9 +364,9 @@ void Board::whoWon() const {
 bool Board::isBoardFull() {
 	for (int r = 0; r < RowNumber; r++) {
 		for (int c = 0; c < colNumber; c++) {
-			char current = boardArray[r][c];
-			if (current != 'X' && current != 'O' && current != 'x' && current != 'o') {
-				return false; // doesnt full
+			Cell current(r + 1, c + 1);
+			if (current.isEmptyCell()) {
+				return false; // not full because at least one cell empty.
 			}
 		}
 	}

@@ -45,7 +45,6 @@ public:
 	 * Otherwise-> false.
 	 */
 	bool hasPossibleMoves(char player) {
-		//return !possibleCellsToAssign(board, player).empty();
 		return !board.possibleCellsToAssign(player).empty();
 	}
 
