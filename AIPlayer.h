@@ -20,12 +20,8 @@ namespace std {
 class AIPlayer : public Player{
 public:
 
-	// REMOVE it!!!!!!!!!!!!!!!!
-	void makesM(Board *board, char playerSign);
-	Cell returnAICell(Board &board, char playerSign);
+
 	Cell chooseCell(Board *board, char playerSign);
-
-
 
 
 	/**
@@ -56,9 +52,7 @@ public:
 	static MiniMaxCell getEnemyCurrentMaxGrade(Board &board,
 			vector<Cell> possibleCells, char enemySign);
 
-	/**
-	 *
-	 */
+
 	static int getEnemyCurrentGrade(Board &board,
 			char enemySign);
 

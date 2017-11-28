@@ -27,11 +27,7 @@ public:
 	 */
 	GameRunner(Board b, Player& firstPlayer, Player& secondPlayer, char startingPlayer = 'X');
 
-	/**
-	 * Gets from the user an input, where he wants to put his sign.
-	 * Then, check if it's a possible move.
-	 */
-	//Cell getUserInput();
+
 	/**
 	 * This function makes the next move for the current player.
 	 */

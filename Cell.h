@@ -96,6 +96,22 @@ public:
 		return x == other.getX() && y == other.getY();
 	}
 
+	/**
+	 * Gets:
+	 * Cell other - the other cell that we want to compare with.
+     * returns true if the cells equal. Otherwise returns false.
+	 */
+	bool operator ==(Cell other) {
+		return (this->x == other.getX()) && (this->y == other.getY());
+	}
+
+	/**
+     * returns the sign of the cell.
+	 */
+	char getSign() {
+		return sign;
+	}
+
 private:
 	// x, y values of the current cell
 	int x, y;
