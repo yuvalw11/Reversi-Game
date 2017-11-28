@@ -24,8 +24,7 @@ public:
 	/**
 	 * defualt constructor.
 	 */
-	GameLogic() {
-	}
+	GameLogic() {}
 
 	/**
 	 * void method that gets char that represents the current player (X/O) and prints
@@ -40,13 +39,6 @@ public:
 	 */
 	bool canAssign(char player, Cell cellToCheck);
 
-	/**
-	 * gets char of the current player (X / O) and returns true if he has possible moves.
-	 * Otherwise-> false.
-	 */
-	bool hasPossibleMoves(char player) {
-		return !board.possibleCellsToAssign(player).empty();
-	}
 
 	/**
 	 * char player -> X\O, the sign of the current player.

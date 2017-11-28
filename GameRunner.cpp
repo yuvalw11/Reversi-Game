@@ -9,7 +9,6 @@
 
 namespace std {
 
-
 GameRunner::GameRunner(Board b, Player& firstP, Player& secondPl,
 		char startingPlayer) {
 	board = b;
@@ -23,15 +22,16 @@ GameRunner::GameRunner(Board b, Player& firstP, Player& secondPl,
 // It means that at least for one player has a possible move to do.
 void std::GameRunner::playNextMove(Player &playerCurrentTurn) {
 	this->currentPlayer = playerCurrentTurn.getPlayerSign();
-	if (!this->gameLogic.hasPossibleMoves(this->currentPlayer)) {
+
+	if (board.possibleCellsToAssign(this->currentPlayer).empty()) {
 		string userPassesChecking;
 		cout << "\n No Possible Moves. Play passes back to the other player.\n "
 				"Press any key to continue and then press on Enter.\n";
 		cin >> userPassesChecking;
 		if (userPassesChecking.length() != 0) {
 			// switch the turn to the other player.
-			//this->switchCurrentPlayer();
-			cout << "\nOkay, Your turn was passed to the other player, that has moves\n";
+			cout
+					<< "\nOkay, Your turn was passed to the other player, that has moves\n";
 			cin.ignore();
 			return;
 			Cell userInput = playerCurrentTurn.chooseCell(&board,
@@ -41,7 +41,6 @@ void std::GameRunner::playNextMove(Player &playerCurrentTurn) {
 			this->board.printBoard();
 		}
 	} else {
-		//gameLogic.printPossibleCells(this->currentPlayer);
 
 		Cell userInput = playerCurrentTurn.chooseCell(&board,
 				this->currentPlayer);
@@ -71,9 +70,10 @@ bool std::GameRunner::canToContinue() {
 	char before = this->currentPlayer; // the first.
 	switchCurrentPlayer();
 	char after = this->currentPlayer;  // the second.
-	if (this->board.isBoardFull()
-			|| (!this->gameLogic.hasPossibleMoves(before)
-					&& !this->gameLogic.hasPossibleMoves(after))) {
+	bool b1 = board.possibleCellsToAssign(before).empty();
+	bool b2 = board.possibleCellsToAssign(after).empty();
+
+	if (this->board.isBoardFull() || (b1 && b2)) {
 		this->currentPlayer = before;
 		return false; // need to stop.
 	}
@@ -86,27 +86,29 @@ int GameRunner::menu() {
 	int input;
 	string lineInput;
 
-		cout << " --- Welcome To Our Game --- \n";
-		cout << "Ofir Ben-Shoham & Yuval Weinstein\n";
-		cout << "Please choose your game option (Press 1 or 2 and enter): \n\n";
-		cout << "1) If you want to play vs other Human Person\n";
-		cout << "2) If you want to play vs AI player ( But..he is very smart :) ) \n";
-		do {
-			getline (std::cin,lineInput);
-			if (cin.fail() || lineInput.length() != 1) {
-				cout << "Doesn't legal chioce. Choose 1 or 2, then press enter" << std::endl;
-				cin.clear(); // reset the failed state
-			}
-		} while (cin.fail() || lineInput.length() != 1);
-
-		input = atoi(lineInput.c_str());
-
-		if (input == 1) {
-			cout << "\n No problem, You will play vs Human Player\n";
-		} else {
-			cout << "\n No problem, You will play vs AI Player\n";
+	cout << " --- Welcome To Our Game --- \n";
+	cout << "Ofir Ben-Shoham & Yuval Weinstein\n";
+	cout << "Please choose your game option (Press 1 or 2 and enter): \n\n";
+	cout << "1) If you want to play vs other Human Person\n";
+	cout
+			<< "2) If you want to play vs AI player ( But..he is very smart :) ) \n";
+	do {
+		getline(std::cin, lineInput);
+		if (cin.fail() || lineInput.length() != 1) {
+			cout << "Doesn't legal chioce. Choose 1 or 2, then press enter"
+					<< std::endl;
+			cin.clear(); // reset the failed state
 		}
-		return input;
+	} while (cin.fail() || lineInput.length() != 1);
+
+	input = atoi(lineInput.c_str());
+
+	if (input == 1) {
+		cout << "\n No problem, You will play vs Human Player\n";
+	} else {
+		cout << "\n No problem, You will play vs AI Player\n";
+	}
+	return input;
 }
 
 void std::GameRunner::switchCurrentPlayer() {
@@ -124,5 +126,4 @@ Player& std::GameRunner::getCurrentPlayerTurn() {
 	}
 	return *secondPlayer; // safer passing by & and not a pointer that can be changed.
 }
-
 
