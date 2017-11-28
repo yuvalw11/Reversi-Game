@@ -44,4 +44,12 @@ TEST(BoardTest, HowMuchTest) {
 
 }
 
-
+TEST(BoardTest, GetCharTest) {
+	Board b1 = createBoard1ForExample();
+	Board b2 = createBoard2ForExample();
+	Board b3 = createBoard3ForExample();
+	EXPECT_TRUE(b1.isCellEmpty(Cell(1,1)));
+	EXPECT_EQ(b1.getPlace(2, 5), 'X');
+	EXPECT_EQ(b2.getPlace(3, 3), 'O');
+	EXPECT_EQ(b3.getPlace(6, 3), 'X');
+}
