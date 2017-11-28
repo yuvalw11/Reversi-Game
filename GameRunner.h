@@ -64,6 +64,10 @@ public:
 	 */
 	static int menu();
 
+	/**
+	 * Player& secondPlayer - the player to set as the second player
+	 * in our game.
+	 */
 	void setSecondPlayer(Player& secondPlayer) {
 		this->secondPlayer = &secondPlayer;
 	}
@@ -74,22 +78,6 @@ private:
 	GameLogic gameLogic;
 	char currentPlayer;
 
-	/**
-	 * function that ask for input from the user.
-	 * returns the Cell that it gets from the user after cheking it's a valid one.
-	 */
-	//Cell askInput();
-	/**
-	 * Gets:
-	 * Cell inputCell - the Cell to check if it's valid cell.
-	 * returns true if the input of the user is valid -> he can put
-	 * his sign in this input Cell.
-	 */
-	//bool checkValidInput(Cell inputCell);
-	/**
-	 * switch the current player after the second made his move.
-	 * It means, change the currentPlayer field into GameRunner.
-	 */
 	void switchCurrentPlayer();
 
 };
