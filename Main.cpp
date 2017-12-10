@@ -42,6 +42,7 @@ int main() {
 		}
 
 	} else {
+
 		// remote player
 		// first read the data from the file
 		const char* ipAdress;
@@ -78,21 +79,14 @@ int main() {
 		// create the remote player
 		Client firstClient(ipAdress, portNumber);
 		firstClient.connectToServer(true); // return the true
-		Client secondClient(ipAdress, portNumber);
-		secondClient.connectToServer();
 		Board b2;
 
 		GameLogic gameLogic(b);
 		RemotePlayer firstRemotePlayer(firstClient, b); // first player.
-		//firstRemotePlayer.setPlayerSign()
-		RemotePlayer secondRemotePlayer(secondClient, b2);
 
 		firstRemotePlayer.setPlayerSign(firstRemotePlayer.getPlayerSign());
-		secondRemotePlayer.setPlayerSign(
-				Cell::returnOtherSign(firstRemotePlayer.getPlayerSign()));
 
-		// ---------------- set it back to secondRemotePlayer -----------------
-		GameRunner gr(b, firstRemotePlayer, secondRemotePlayer,
+		GameRunner gr(b, firstRemotePlayer, firstRemotePlayer,
 				firstRemotePlayer.getPlayerSign());
 		b.printBoard();
 
@@ -101,7 +95,6 @@ int main() {
 		try {
 			gr.run(); // run the game.
 			//firstClient.sendAndWriteToServer();
-			//secondClient.sendAndWriteToServer();
 		} catch (exception *e) {
 			cout << "exception was caught :( \n";
 		} catch(char const* msg) {
@@ -112,8 +105,6 @@ int main() {
 
 }
 
-//Client client(ipAdress, portNumber);
-//client.startClient();
 return 0;
 }
 

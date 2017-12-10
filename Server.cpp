@@ -109,8 +109,6 @@ void Server::workWithClients() {
 	// start the while loop until END was sent.
 
 	while (checkIfcanContinue()) {
-		/*cout << "first client socket is: " << firstClientSocket <<endl;
-		 cout << "second client socket is: " << secondClientSocket <<endl;*/
 
 		handleWithInput(firstClientSocket, secondClientSocket);
 		// check if still can continue:

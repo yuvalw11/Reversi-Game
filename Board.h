@@ -184,6 +184,12 @@ public:
 	vector<Cell> possibleCellsToAssign(char player);
 
 	/**
+	 * print possible moves for playing for the input player char,
+	 * which is X or 0.
+	 */
+	void printPossibleCells(char player);
+
+	/**
 	 * char player -> X\O, the sign of the current player.
 	 * Cell input  -> the input that the player wrote,
 	 * here we assume that his choose

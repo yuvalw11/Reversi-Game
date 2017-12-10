@@ -12,7 +12,7 @@ using namespace std;
 RemotePlayer::RemotePlayer(Client myClient, GameLogic gl) {
 	client = myClient;
 	gameLogic = gl;
-	//myClient->connectToServer(isFirstPlayer);
+
 	if (myClient.getPlayerNum() == 1) {
 		// x is the first player
 		currentPlayer = 'X';
@@ -35,39 +35,36 @@ void RemotePlayer::printPossibleMoves(Board& b, char Ps) {
 Cell RemotePlayer::chooseCell(Board* board, char playerSign) {
 
 	// update his board before passing to the second player his turn.
-	/*DoubleCell dc;
+	DoubleCell dc;
 	Cell otherTurn, myTurn;
+
+	cout << "First print\n";
+	board->printBoard();
 
 	if (playerSign == 'X') {
 		// the first player first write his turn and then read
 		printPossibleMoves(*board, playerSign);
 		client.setPlayerNum(1);
-		dc = client.sendAndWriteToServer(); // write here his turn and then read other player turn.
+		dc = client.sendAndWriteToServer(board); // write here his turn and then read other player turn.
 	} else {
 		client.setPlayerNum(2);
 		// the second player first read other player sign and then write.
-		dc = client.sendAndWriteToServer(); // write here his turn and then read other player turn.
+		dc = client.sendAndWriteToServer(board); // write here his turn and then read other player turn.
 	}
 
-	otherTurn = dc.getOtherPlayerMove();
-	cout << "(1) My cell to play is:";
-	otherTurn.printCell();
-	myTurn = dc.getCurrentPlayerMove();
-	cout << "\n(1) Other cell to play is: \n";
-	myTurn.printCell();
 
-	cout << "After using client member the results are:\n";
-	cout << "(2)  My cell to play is: ";
-	client.getMyCell().printCell();
-	cout << "\n(2) Other cell to play is: ";
-	client.getOtherCell().printCell();
-	cout << endl;
+	myTurn = dc.getCurrentPlayerMove();
+	otherTurn = dc.getOtherPlayerMove();
+
 
 	// first make the other player turn.
 	board->inputAssignManager(Cell::returnOtherSign(playerSign), otherTurn);
+	cout << "Second print:\n";
+	board->printBoard();
+
+	cout << "\n And now makes my move and the board looks as follows:\n";
+	//board->inputAssignManager(playerSign, dc.getCurrentPlayerMove());
 
 	// return the current player turn - the cell that choosen (that he entered via input from user).
-	return myTurn;*/
-	client.sendAndWriteToServer();
-	return Cell(1,1);
+	return myTurn;
 }

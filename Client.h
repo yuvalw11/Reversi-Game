@@ -9,7 +9,7 @@
 #define CLIENT_H_
 #include "temp/Cell.h"
 #include "temp/DoubleCell.h"
-// include the game runner
+#include "temp/Board.h"
 
 namespace std {
 
@@ -26,7 +26,7 @@ public:
 		turnsToPlay = d;
 	}
 	void connectToServer(bool firstClient = false);
-	DoubleCell sendAndWriteToServer();
+	DoubleCell sendAndWriteToServer(Board* board);
 	void readHisCilentNum();
 	Cell getCurrentTurn();
 	void sendTurnToServer(int row, int col);

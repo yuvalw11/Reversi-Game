@@ -16,7 +16,7 @@ Cell HumanPlayer::chooseCell(Board* board, char playerSign) {
 }
 
 Cell HumanPlayer::askInput() {
-	string lineInput; //, secondInput;
+	string lineInput;
 	getline(cin, lineInput);
 	size_t temp = lineInput.find(",");
 	string r = lineInput.substr(0, temp);

@@ -365,7 +365,8 @@ bool Board::isBoardFull() {
 	for (int r = 0; r < RowNumber; r++) {
 		for (int c = 0; c < colNumber; c++) {
 			char current = boardArray[r][c];
-			if (current != 'X' && current != 'O' && current != 'x' && current != 'o') {
+			if (current != 'X' && current != 'O' && current != 'x'
+					&& current != 'o') {
 				return false; // doesnt full
 			}
 		}
@@ -441,4 +442,15 @@ bool Board::canAssign(char player, Cell cellToCheck) {
 		}
 	}
 	return false;
+}
+
+void Board::printPossibleCells(char player) {
+	vector<Cell> possibleMovesVec = this->possibleCellsToAssign(player);
+	cout << "Player: " << player << " ,Your Possible Moves are: ";
+	for (unsigned i = 0; i < possibleMovesVec.size(); i++) {
+		possibleMovesVec[i].printCell();
+	}
+	cout
+			<< " \nPlease choose a cell from your possible options, for example write 3 (Enter) 4 (Enter):"
+			<< endl;
 }

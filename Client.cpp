@@ -13,7 +13,6 @@
 #include <netdb.h>
 #include <string.h>
 #include <unistd.h>
-#include "Client.h"
 
 using namespace std;
 
@@ -65,30 +64,46 @@ void Client::connectToServer(bool isFirst) {
 	}
 }
 
-DoubleCell Client::sendAndWriteToServer() {
+DoubleCell Client::sendAndWriteToServer(Board* board) {
 	int x, y;
 	Cell readenCell;
 	Cell myCell;
 
 	if (playerNum == 1) {
+		// print the board that the user will know the board before his desicion.
+		board->printBoard();
+
 		cout << "Enter x\n";
 		cin >> x;
 		cout << "Enter y\n";
 		cin >> y;
-		myCell = Cell(x, y);
+		myCell = Cell(x, y, 'X');
+		board->inputAssignManager('X', myCell);
 		sendTurnToServer(x, y);
 		readenCell = getCurrentTurn(); // then he reads.
+		readenCell.setSign('O');
 	} else {
 		readenCell = getCurrentTurn(); // first he reads.
+		readenCell.setSign('X');
+		// print the board after putting other player move
+		board->inputAssignManager('X', readenCell);
+		board->printBoard();
+		board->possibleCellsToAssign('O');
 		cout << "Enter x\n";
 		cin >> x;
 		cout << "Enter y\n";
 		cin >> y;
 		sendTurnToServer(x, y);
-		myCell = Cell(x, y);
+		myCell = Cell(x, y, 'O');
 	}
 	this->turnsToPlay.setOtherPlayerMove(readenCell);
 	this->turnsToPlay.setCurrentPlayerMove(myCell);
+
+	// add here the print of the board.
+	// first check the cells as follows:
+	cout << "My cell to play is: "; Cell m = this->turnsToPlay.getCurrentPlayerMove(); m.printCell(); cout <<"\n";
+	cout << "Other cell to play is: "; Cell o = this->turnsToPlay.getOtherPlayerMove(); o.printCell(); cout <<"\n";
+
 
 	DoubleCell toReturn(readenCell, myCell);
 	return toReturn;
@@ -114,10 +129,6 @@ Cell Client::getCurrentTurn() {
 	int col = 0;
 
 
-	// ************************** NOTE ********************************************
-	// The above line makes an exception. In debug it looks that clientSocket has his socket as needed,
-	// So , I don't know what's the problem. Try to take a look in order to solve it.
-
 	int n = read(clientSocket, &row, sizeof(row));
 	if (n <= 0) {
 		throw "Exception in getCurrentTurn() In Client Class -  can't read the row number\n";
@@ -142,12 +153,3 @@ void Client::sendTurnToServer(int row, int col) {
 	}
 }
 
-void Client::startClient() {
-	try {
-		sendAndWriteToServer(); // Have a return value - it's double cell. & update his turnsToPlay field.
-		cout << "passed the writing\n";
-
-	} catch (const char *msg) {
-		cout << "Failed to send exercise to server. Reason is: " << msg << endl;
-	}
-}

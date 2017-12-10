@@ -2,7 +2,8 @@
  * HumanPlayer.h
  *
  *  Created on: Nov 24, 2017
- *      Author: Ofir Ben Shoham
+ *     Names : Yuval Weinstein & Ofir Ben Shoham.
+ *     Id: 208580613 & 208642496.
  */
 
 #ifndef HUMANPLAYER_H_
@@ -27,6 +28,10 @@ public:
 	}
 
 	Cell chooseCell(Board *board, char playerSign);
+
+
+	char getPlayerSign() { return this->playerSign; }
+
 
 	/**
 	 * function that ask for input from the user.

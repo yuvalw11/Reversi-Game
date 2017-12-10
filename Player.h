@@ -24,9 +24,8 @@ public:
 	/**
 	 * returns the sign of the player - X or 0.
 	 */
-	char getPlayerSign() {
-		return playerSign;
-	}
+	virtual char getPlayerSign() = 0;
+
 
 	void setPlayerSign(char playerSign) {
 			this->playerSign = playerSign;

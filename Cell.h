@@ -58,6 +58,11 @@ public:
 	}
 
 	/**
+	 * gets char to set to.
+	 */
+	void setSign(char setTo) { this->sign = setTo; }
+
+	/**
 	 * returns true if in this cell we have O
 	 */
 	bool hasO() {
@@ -99,14 +104,19 @@ public:
 	/**
 	 * Gets:
 	 * Cell other - the other cell that we want to compare with.
-     * returns true if the cells equal. Otherwise returns false.
+	 * returns true if the cells equal. Otherwise returns false.
 	 */
 	bool operator ==(Cell other) {
 		return (this->x == other.getX()) && (this->y == other.getY());
 	}
 
 	/**
-     * returns the sign of the cell.
+	 * set x, y values
+	 */
+	void setValues(int nx, int ny);
+
+	/**
+	 * returns the sign of the cell.
 	 */
 	char getSign() {
 		return sign;

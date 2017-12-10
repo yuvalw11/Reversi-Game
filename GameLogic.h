@@ -22,7 +22,7 @@ public:
 	GameLogic(Board newBoard);
 
 	/**
-	 * defualt constructor.
+	 * Default constructor.
 	 */
 	GameLogic() {}
 
