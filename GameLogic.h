@@ -8,12 +8,11 @@
 
 #ifndef GAMELOGIC_H_
 #define GAMELOGIC_H_
-#include "PlayerInterface.h"
 #include "Board.h"
 
 namespace std {
 
-class GameLogic: public PlayerInterface {
+class GameLogic {
 public:
 
 	/**
@@ -23,10 +22,9 @@ public:
 	GameLogic(Board newBoard);
 
 	/**
-	 * defualt constructor.
+	 * Default constructor.
 	 */
-	GameLogic() {
-	}
+	GameLogic() {}
 
 	/**
 	 * void method that gets char that represents the current player (X/O) and prints
@@ -41,13 +39,6 @@ public:
 	 */
 	bool canAssign(char player, Cell cellToCheck);
 
-	/**
-	 * gets char of the current player (X / O) and returns true if he has possible moves.
-	 * Otherwise-> false.
-	 */
-	bool hasPossibleMoves(char player) {
-		return !possibleCellsToAssign(board, player).empty();
-	}
 
 	/**
 	 * char player -> X\O, the sign of the current player.

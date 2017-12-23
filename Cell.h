@@ -21,7 +21,7 @@ public:
 		x = 0;
 		y = 0;
 		sign = ' ';
-		cout << "Don't initial Cell() by its default!" << endl;
+		//cout << "Don't initial Cell() by its default!" << endl;
 	}
 	/**
 	 * constructor method.
@@ -56,6 +56,11 @@ public:
 		bool b = this->sign == 'X' || this->sign == 'x';
 		return b;
 	}
+
+	/**
+	 * gets char to set to.
+	 */
+	void setSign(char setTo) { this->sign = setTo; }
 
 	/**
 	 * returns true if in this cell we have O
@@ -94,6 +99,27 @@ public:
 	 */
 	bool compareCells(Cell other) {
 		return x == other.getX() && y == other.getY();
+	}
+
+	/**
+	 * Gets:
+	 * Cell other - the other cell that we want to compare with.
+	 * returns true if the cells equal. Otherwise returns false.
+	 */
+	bool operator ==(Cell other) {
+		return (this->x == other.getX()) && (this->y == other.getY());
+	}
+
+	/**
+	 * set x, y values
+	 */
+	void setValues(int nx, int ny);
+
+	/**
+	 * returns the sign of the cell.
+	 */
+	char getSign() {
+		return sign;
 	}
 
 private:

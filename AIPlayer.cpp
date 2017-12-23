@@ -10,25 +10,6 @@
 namespace std {
 
 /**
- * implement make Move for the AI player, according his algorithem to choose a cell,
- * MiniMax.
- */
-void AIPlayer::makesM(Board *board, char playerSign) {
-	MiniMaxCell AINextMove = AIPlayer::returnNextMove(*board, playerSign);
-	// now put the move that was choosen by our mini-max algorithem,
-	// into our REAL Board.
-	Cell c = AINextMove.getCellToPut();
-	board->enterToBoard(playerSign, c.getX() + 1, c.getY() + 1);
-	cout << "AI Played: (" << c.getX() + 1 << ", " << c.getY() + 1 << ")"<<endl;
-}
-
-Cell AIPlayer::returnAICell(Board &board, char playerSign) {
-	MiniMaxCell AINextMove = AIPlayer::returnNextMove(board, playerSign);
-	Cell c = AINextMove.getCellToPut();
-	return c; // the cell that choosed by the AI player.
-}
-
-/**
  * This function takes care to parts 2b and 2c in the pesudo code.
  * Gets:
  * vector<Cell> possibleCells - all the possible cells of the enemy in the
@@ -37,12 +18,17 @@ Cell AIPlayer::returnAICell(Board &board, char playerSign) {
  */
 MiniMaxCell AIPlayer::getEnemyCurrentMaxGrade(Board &board,
 		vector<Cell> enemyPossibleCells, char enemySign) {
-	int maxGrade = 1000, currentGrade;
+	Board fakeBoard;
+	int maxGrade = -1000, currentGrade;
 	MiniMaxCell maxToReturn(Cell(-1, -1), -1); // just for initilize.
 	for (unsigned int i = 0; i < enemyPossibleCells.size(); i++) {
 		Cell currentCell = enemyPossibleCells[i];
-		currentGrade = getEnemyCurrentGrade(board, currentCell, enemySign);
-		if (currentGrade < maxGrade) {
+		fakeBoard = board.copyConstructor(board);
+		// put it for checking his grade if the enemy put his cell there.
+		fakeBoard.inputAssignManager(enemySign, currentCell);
+		//Cell currentCell = Cell(enemyPossibleCells[i].getX(),enemyPossibleCells[i].getY()) ;
+		currentGrade = getEnemyCurrentGrade(fakeBoard, enemySign);
+		if (currentGrade > maxGrade) {
 			maxGrade = currentGrade;
 			// update maxGradeCell to the max grade with the current cell
 			maxToReturn.replace(currentCell, maxGrade);
@@ -56,8 +42,7 @@ MiniMaxCell AIPlayer::getEnemyCurrentMaxGrade(Board &board,
  *  method gets (&) of the fake board (that changed) and not a pointer to our real board.
  *  now will check what is the grade of the enemy and returns this grade.
  */
-int AIPlayer::getEnemyCurrentGrade(Board &board, Cell possibleCellToCheck,
-		char enemySign) {
+int AIPlayer::getEnemyCurrentGrade(Board &board, char enemySign) {
 
 	int enemyCells = board.howMuchCells(enemySign);
 	char AIPlayerSign = Cell::returnOtherSign(enemySign);
@@ -67,36 +52,55 @@ int AIPlayer::getEnemyCurrentGrade(Board &board, Cell possibleCellToCheck,
 
 }
 
+Cell AIPlayer::chooseCell(Board* board, char playerSign) {
+	MiniMaxCell AINextMove = AIPlayer::returnNextMove(*board, playerSign);
+	Cell c = AINextMove.getCellToPut();
+	cout << "AI Played: (" << c.getX() + 1 << ", " << c.getY() + 1 << ")"
+			<< endl;
+	return c; // the cell that choosed by the AI player.
+}
+
 MiniMaxCell AIPlayer::returnNextMove(Board& board, char playerSign) {
 	int lowestGrade = 1000;
-		char enemySign = Cell::returnOtherSign(playerSign);
-		MiniMaxCell lowestGradeToReturn, currentCellAndGrade;
+	char enemySign = Cell::returnOtherSign(playerSign);
+	MiniMaxCell lowestGradeToReturn;
+	MiniMaxCell currentCellAndGrade;
+	// just initialize to max when search for the min, so this initialize it doesn't matter
 
-		// step 1 in pusudo code - finding all possible moves of the AI player
-		vector<Cell> AIPossibleMoves = board.possibleCellsToAssign(playerSign);
-		// for each possible moves of the AI player:
-		for (unsigned int i = 0; i < AIPossibleMoves.size(); i++) {
-			// part 2a, make the move in the memory (without any real change) but update the "fake" board.
-			Board fakeBoard = board.copyConstructor(board);
-			// +1 because enterToBoard makes -1 to the inputs.
+	// step 1 in pusudo code - finding all possible moves of the AI player
+	vector<Cell> AIPossibleMoves = board.possibleCellsToAssign(playerSign);
+	// for each possible moves of the AI player:
+	for (unsigned int i = 0; i < AIPossibleMoves.size(); i++) {
+		// part 2a, make the move in the memory (without any real change) but update the "fake" board.
+		Board fakeBoard = board.copyConstructor(board);
+		Cell cellToCheck = Cell(AIPossibleMoves[i].getX(),
+				AIPossibleMoves[i].getY()); // dont change it!
+
+		if (fakeBoard.isCellEmpty(cellToCheck)) {
 			fakeBoard.enterToBoard(playerSign, AIPossibleMoves[i].getX(), // +1 REMOVED
 					AIPossibleMoves[i].getY());
+			// make switch if the fake board after the new cell that was placed.
+			fakeBoard.inputAssignManager(playerSign, cellToCheck); // update the fake board.
 
 			// Part 2b: checks the possibles moves of the enemy (not the AI player)
 			// after the cell we added to fakeBoard
 			vector<Cell> enemyPossibleMoves = fakeBoard.possibleCellsToAssign(
 					enemySign);
 			currentCellAndGrade.replace(
-					AIPlayer::getEnemyCurrentMaxGrade(fakeBoard, enemyPossibleMoves,
-							enemySign));
+					AIPlayer::getEnemyCurrentMaxGrade(fakeBoard,
+							enemyPossibleMoves, enemySign));
 			if (currentCellAndGrade.getGradeForThisCell() < lowestGrade) {
 				// swap the lowest grade
 				lowestGrade = currentCellAndGrade.getGradeForThisCell();
 				// swap the lowest object with the lowest grade for the enemy next move.
-				lowestGradeToReturn.replace(currentCellAndGrade);
+				// need the AI moves that makes the enemy to have minimal grade.
+				lowestGradeToReturn.replace(
+						MiniMaxCell(AIPossibleMoves[i], lowestGrade));
 			}
 		}
-		return lowestGradeToReturn;
+	}
+
+	return lowestGradeToReturn;
 }
 
 } /* namespace std */

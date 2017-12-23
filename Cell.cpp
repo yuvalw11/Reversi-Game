@@ -31,3 +31,7 @@ char Cell::returnOtherSign(char currentSign) {
 	return ' ';
 }
 
+void Cell::setValues(int nx, int ny) {
+	x = nx;
+	y = ny;
+}

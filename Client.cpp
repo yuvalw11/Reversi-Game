@@ -13,7 +13,6 @@
 #include <netdb.h>
 #include <string.h>
 #include <unistd.h>
-#include "Client.h"
 
 using namespace std;
 
@@ -65,37 +64,54 @@ void Client::connectToServer(bool isFirst) {
 	}
 }
 
-DoubleCell Client::sendAndWriteToServer() {
+DoubleCell Client::sendAndWriteToServer(Board* board) {
 	int x, y;
 	Cell readenCell;
 	Cell myCell;
 
 	if (playerNum == 1) {
-		cout << "Enter x\n";
-		cin >> x;
-		cout << "Enter y\n";
-		cin >> y;
-		myCell = Cell(x, y, 'X');
-		sendTurnToServer(x, y);
-		readenCell = getCurrentTurn(); // then he reads.
-		readenCell.setSign('O');
+
+		if (board->canContinue('X')) {
+			cout << "Enter x\n";
+			cin >> x;
+			cout << "Enter y\n";
+			cin >> y;
+			myCell = Cell(x, y, 'X');
+			board->inputAssignManager('X', myCell);
+			board->printBoard();
+			sendTurnToServer(x, y);
+		}
+
+		if (board->canContinue('O')) {
+			readenCell = getCurrentTurn(); // then he reads.
+			readenCell.setSign('O');
+			cout << "your opponent played: (" << readenCell.getX() + 1 << ", " << readenCell.getY() + 1 << ")\n";
+		}
+
+
 	} else {
-		readenCell = getCurrentTurn(); // first he reads.
-		readenCell.setSign('X');
-		cout << "Enter x\n";
-		cin >> x;
-		cout << "Enter y\n";
-		cin >> y;
-		sendTurnToServer(x, y);
-		myCell = Cell(x, y, 'O');
+		if (board->canContinue('X')) {
+			readenCell = getCurrentTurn(); // first he reads.
+			readenCell.setSign('X');
+			board->inputAssignManager('X', readenCell);
+			cout << "your opponent played: (" << readenCell.getX() + 1 << ", " << readenCell.getY() + 1 << ")\n";
+			board->printBoard();
+		}
+
+		if (board->canContinue('O')) {
+			board->printPossibleCells('O');
+			cout << "Enter x\n";
+			cin >> x;
+			cout << "Enter y\n";
+		    cin >> y;
+			sendTurnToServer(x, y);
+			myCell = Cell(x, y, 'O');
+		}
 	}
 	this->turnsToPlay.setOtherPlayerMove(readenCell);
 	this->turnsToPlay.setCurrentPlayerMove(myCell);
 
 	// add here the print of the board.
-	// first check the cells as follows:
-	cout << "My cell to play is: "; Cell m = this->turnsToPlay.getCurrentPlayerMove(); m.printCell(); cout <<"\n";
-	cout << "Other cell to play is: "; Cell o = this->turnsToPlay.getOtherPlayerMove(); o.printCell(); cout <<"\n";
 
 	DoubleCell toReturn(readenCell, myCell);
 	return toReturn;
@@ -120,7 +136,6 @@ Cell Client::getCurrentTurn() {
 	int row = 0;
 	int col = 0;
 
-	/// ****  print here the board **** ////
 
 	int n = read(clientSocket, &row, sizeof(row));
 	if (n <= 0) {
@@ -130,7 +145,6 @@ Cell Client::getCurrentTurn() {
 	if (read(clientSocket, &col, sizeof(col)) <= 0) {
 		throw "Error reading arg2";
 	}
-	cout << "I'm the client and I read:  (" << row << ", " << col << ") ";
 	Cell c(row, col);
 	return c;
 }
@@ -146,12 +160,3 @@ void Client::sendTurnToServer(int row, int col) {
 	}
 }
 
-void Client::startClient() {
-	try {
-		sendAndWriteToServer(); // Have a return value - it's double cell. & update his turnsToPlay field.
-		cout << "passed the writing\n";
-
-	} catch (const char *msg) {
-		cout << "Failed to send exercise to server. Reason is: " << msg << endl;
-	}
-}

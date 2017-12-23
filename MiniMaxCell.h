@@ -22,7 +22,7 @@ public:
 	/**
 	 * return the cell
 	 */
-	const Cell& getCellToPut() const {
+	Cell& getCellToPut() {
 		return cellToPut;
 	}
 

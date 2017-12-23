@@ -183,6 +183,34 @@ public:
 	 */
 	vector<Cell> possibleCellsToAssign(char player);
 
+	/**
+	 * print possible moves for playing for the input player char,
+	 * which is X or 0.
+	 */
+	void printPossibleCells(char player);
+
+	/**
+	 * char player -> X\O, the sign of the current player.
+	 * Cell input  -> the input that the player wrote,
+	 * here we assume that his choose
+	 * is valid.
+	 */
+	void inputAssignManager(char player, Cell input);
+
+	/**
+	 * This method checks if the input player can to assign the input cell
+	 * in our board.
+	 * if it's possible return true. Otherwise -> false.
+	 * Cell cellToCheck borders are from: (0..7, 0..7) after the constructor.
+	 */
+	bool canAssign(char player, Cell cellToCheck);
+
+	/**
+     * return true if there are avilable steps and false if there aren't.
+	 * c is the player to check
+	 */
+	bool canContinue(char c);
+
 private:
 	// array that represents our board.
 	char boardArray[RowNumber][colNumber];
@@ -206,6 +234,8 @@ private:
 	 * ensure that all the values in our board initilized to space.
 	 */
 	void confirmInitialize();
+
+
 
 };
 

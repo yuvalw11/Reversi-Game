@@ -12,10 +12,11 @@
 
 namespace std {
 
-Server::Server(int portNum) {
+Server::Server(int portNum, GameManager* gm) {
 	this->serverPortNumber = portNum;
 	this->serverSocket = 0; // by default, will change after initalize.
 	canContinue = true; // until we get "END"
+	this->gamesManager = gm;
 }
 
 void Server::socketInitialize() {
@@ -54,45 +55,20 @@ bool Server::checkIfcanContinue() {
 	return this->canContinue;
 }
 
-void Server::workWithClients() {
-	// Define the clients socket's structures
-	struct sockaddr_in firstClientAddress, secondClientAddress;
-	socklen_t firstClientAddressSize, secondClientAddressSize;
+void Server::workWithClients(GameDescriptor gameDes) {
+	int firstClientSocket = gameDes.getFirstClientSocket();
+	int secondClientSocket = gameDes.getSecondClientSocket();
 
-	cout << "Waiting for client connections..." << endl;
-	// Accept a new client connection for the first client.
-	int firstClientSocket = accept(serverSocket,
-			(struct sockaddr *) &firstClientAddress, &firstClientAddressSize);
-	cout << "firstClientSocket is:  " << firstClientSocket << endl;
-
-	if (firstClientSocket < 0) {
-		perror("Problem in accept of the first client.\n");
+	if (firstClientSocket == -1 || secondClientSocket == -1) {
+		cout
+				<< "I don't have the sockets of the clients, can't continue. Server::workWithClients() \n";
+		exit(-1);
 	}
-
-	// now want to read "connected" from the cilent to know that it's really connection.
-	char buffer[4096];
-
-	int secondClientSocket = accept(serverSocket,
-			(struct sockaddr *) &secondClientAddress, &secondClientAddressSize);
-	if (secondClientSocket < 0) {
-		perror("Problem in accept of the second client.\n");
-	}
-
-	memset(buffer, 0, sizeof(buffer)); // for automatically-allocated arrays
-
-	strcpy(buffer, "");
-	strcpy(buffer, "1");
 	int i = 1;
 	if (write(firstClientSocket, &i, sizeof(i)) < 0) {
 		perror(
 				"Failed to write 1 to the firstClientSocket after both connected");
 	}
-
-	// here!!
-	memset(buffer, 0, sizeof(buffer)); // for automatically-allocated arrays
-
-	strcpy(buffer, ""); // empty now
-	strcpy(buffer, "2");
 
 	i = 2;
 	if (write(secondClientSocket, &i, sizeof(i)) < 0) {
@@ -100,17 +76,12 @@ void Server::workWithClients() {
 				"Failed to write 2 to the secondClientSocket after both connected");
 	}
 
-	strcpy(buffer, ""); // reset the buffer
-	memset(buffer, 0, sizeof(buffer)); // for automatically-allocated arrays
-
 	// Connect them before the loop because we want to send "1 to player 1 & 2 to player 2
 	// Just once and not always.
 
 	// start the while loop until END was sent.
 
 	while (checkIfcanContinue()) {
-		/*cout << "first client socket is: " << firstClientSocket <<endl;
-		 cout << "second client socket is: " << secondClientSocket <<endl;*/
 
 		handleWithInput(firstClientSocket, secondClientSocket);
 		// check if still can continue:
@@ -125,7 +96,6 @@ void Server::workWithClients() {
 
 	// when it comes to here, it means that we exited from the while and the game is ended.
 	closeServer(); // then close the socket's server and finish the game.
-
 }
 
 void Server::closeServer() {
@@ -164,5 +134,38 @@ void Server::sendTurn(int clientSocToWriteInto, int row, int col) {
 	}
 }
 
+int Server::acceptFirstClientSocket() {
+	int firstClientSocket;
+	struct sockaddr_in firstClientAddress;
+	socklen_t firstClientAddressSize;
+
+	cout << "Waiting for client connections..." << endl;
+	// Accept a new client connection for the first client.
+	firstClientSocket = accept(serverSocket,
+			(struct sockaddr *) &firstClientAddress, &firstClientAddressSize);
+	cout << "firstClientSocket is:  " << firstClientSocket << endl;
+
+	if (firstClientSocket < 0) {
+		perror("Problem in accept of the first client.\n");
+	}
+	return firstClientSocket;
+}
+
+int Server::acceptSecondClientSokcet() {
+	int secondClientSocket;
+	struct sockaddr_in secondClientAddress;
+	socklen_t secondClientAddressSize;
+
+	secondClientSocket = accept(serverSocket,
+			(struct sockaddr *) &secondClientAddress, &secondClientAddressSize);
+	if (secondClientSocket < 0) {
+		perror("Problem in accept of the second client.\n");
+	}
+	return secondClientSocket;
+}
+
+string Server::getOnePlayerGames() {
+	return this->gamesManager->getsOnePlayerGameNames();
+}
 }
 

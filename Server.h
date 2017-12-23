@@ -14,7 +14,7 @@
 #include <string.h>
 #include <iostream>
 #include <string.h>
-
+#include "GameManager.h"
 #include <stdio.h>
 
 
@@ -29,7 +29,7 @@ public:
 	 * int portNum - the numebr of the port.
 	 * Both helps us to make a connection.
 	 */
-	Server(int portNum);
+	Server(int portNum, GameManager* gm);
 
 	/**
 	 * return true if we can continue to ask from the clients for inputs.
@@ -61,9 +61,21 @@ public:
 	void setAndStartServer();
 
 	/**
-	 * This method inialized the client's sockets.
+	 * define client sockets by accepting them.
 	 */
-	void workWithClients();
+	void defineClientsSockets();
+
+	/**
+	 * accept the first & second client into the server and return his socket number.
+	 */
+	int acceptFirstClientSocket();
+	int acceptSecondClientSokcet();
+
+	/**
+	 * This method starting the game with the clients.
+	 * gets GameDescriptor gameDes- contian data about the first & second clients sockets. And name of game.
+	 */
+	void workWithClients(GameDescriptor gameDes);
 
 	/**
 	 * close the socket of the server.
@@ -82,10 +94,21 @@ public:
 	 */
 	void sendTurn(int clientSocToWriteInto, int row, int col);
 
+	/**
+	 * get the games with just one client into them.
+	 */
+	string getOnePlayerGames();
+
+	/**
+	 * return pointer to gameManager.
+	 */
+	GameManager* getGamesManager() {return gamesManager;}
+
 private:
 	// the files of the server are ip adress & port number.
 	int serverSocket;
 	int serverPortNumber;
+	GameManager* gamesManager;
 	bool canContinue;
 
 };
