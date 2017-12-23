@@ -38,9 +38,6 @@ Cell RemotePlayer::chooseCell(Board* board, char playerSign) {
 	DoubleCell dc;
 	Cell otherTurn, myTurn;
 
-	cout << "First print\n";
-	board->printBoard();
-
 	if (playerSign == 'X') {
 		// the first player first write his turn and then read
 		printPossibleMoves(*board, playerSign);
@@ -59,10 +56,7 @@ Cell RemotePlayer::chooseCell(Board* board, char playerSign) {
 
 	// first make the other player turn.
 	board->inputAssignManager(Cell::returnOtherSign(playerSign), otherTurn);
-	cout << "Second print:\n";
-	board->printBoard();
 
-	cout << "\n And now makes my move and the board looks as follows:\n";
 	//board->inputAssignManager(playerSign, dc.getCurrentPlayerMove());
 
 	// return the current player turn - the cell that choosen (that he entered via input from user).
