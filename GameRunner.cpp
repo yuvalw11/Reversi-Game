@@ -24,13 +24,19 @@ void std::GameRunner::playNextMove(Player &playerCurrentTurn) {
 	this->currentPlayer = playerCurrentTurn.getPlayerSign();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if (board.possibleCellsToAssign(this->currentPlayer).empty()) {
 =======
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 	Board t = this->board;
 	char signToSearchFor = playerCurrentTurn.getPlayerSign();
 	vector<Cell> possibleCells = t.possibleCellsToAssign(signToSearchFor);
 	if (possibleCells.empty()) {
+<<<<<<< HEAD
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 		string userPassesChecking;
 		cout << "\n No Possible Moves. Play passes back to the other player.\n "
 				"Press any key to continue and then press on Enter.\n";
@@ -101,17 +107,23 @@ int GameRunner::menu() {
 	cout
 			<< "2) If you want to play vs AI player ( But..he is very smart :) ) \n";
 <<<<<<< HEAD
+<<<<<<< HEAD
 	do {
 		getline(std::cin, lineInput);
 		if (cin.fail() || lineInput.length() != 1) {
 			cout << "Doesn't legal chioce. Choose 1 or 2, then press enter"
 =======
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 	cout << "3) If you want to play via a remove player\n";
 	do {
 		getline(std::cin, lineInput);
 		if (cin.fail() || lineInput.length() != 1) {
 			cout << "Doesn't legal chioce. Choose 1 or 2 or 3, then press enter"
+<<<<<<< HEAD
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 					<< std::endl;
 			cin.clear(); // reset the failed state
 		}
@@ -122,14 +134,20 @@ int GameRunner::menu() {
 	if (input == 1) {
 		cout << "\n No problem, You will play vs Human Player\n";
 <<<<<<< HEAD
+<<<<<<< HEAD
 	} else {
 		cout << "\n No problem, You will play vs AI Player\n";
 =======
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 	} else if (input == 2){
 		cout << "\n No problem, You will play vs AI Player\n";
 	} else {
 		cout << "\n No problem, You will play vs Remote Player\n";
+<<<<<<< HEAD
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 	}
 	return input;
 }

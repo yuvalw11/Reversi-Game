@@ -9,9 +9,13 @@
 #include "Server.h"
 #include <stdio.h>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 #include <stdlib.h>
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+#include <stdlib.h>
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 
 namespace std {
 
@@ -51,6 +55,7 @@ void Server::setAndStartServer() {
 
 void Server::handleWithInput(int clientSocToRead, int clientSocToWrite) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	char buffer[4096]; // to the input from the reading socket.
 	// first will read from the clientSocToRead
 	int n = read(clientSocToRead, &buffer, sizeof(buffer));
@@ -78,6 +83,9 @@ void Server::handleWithInput(int clientSocToRead, int clientSocToWrite) {
 =======
 	GetAndSendIntsToClient(clientSocToRead, clientSocToWrite);
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+	GetAndSendIntsToClient(clientSocToRead, clientSocToWrite);
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 }
 
 bool Server::checkIfcanContinue() {
@@ -94,16 +102,22 @@ void Server::workWithClients() {
 	int firstClientSocket = accept(serverSocket,
 			(struct sockaddr *) &firstClientAddress, &firstClientAddressSize);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	cout << "firstClientSocket is:  " << firstClientSocket << endl;
 
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+	cout << "firstClientSocket is:  " << firstClientSocket << endl;
+
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 	if (firstClientSocket < 0) {
 		perror("Problem in accept of the first client.\n");
 	}
 
 	// now want to read "connected" from the cilent to know that it's really connection.
 	char buffer[4096];
+<<<<<<< HEAD
 <<<<<<< HEAD
 	if (read(firstClientSocket, buffer, sizeof(buffer)) < 0) {
 		perror("Problem in read() of firstClientSocket\n");
@@ -118,12 +132,15 @@ void Server::workWithClients() {
 	// do the same to check that the second is connected.
 =======
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 
 	int secondClientSocket = accept(serverSocket,
 			(struct sockaddr *) &secondClientAddress, &secondClientAddressSize);
 	if (secondClientSocket < 0) {
 		perror("Problem in accept of the second client.\n");
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 	if (read(secondClientSocket, buffer, sizeof(buffer)) < 0) { // check for connection from the second client.
 		perror("Problem in read() of secondClientSocket\n");
@@ -143,6 +160,8 @@ void Server::workWithClients() {
 	strcpy(buffer, "2");
 	if (write(secondClientSocket, buffer, sizeof(buffer)) < 0) {
 =======
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 
 	memset(buffer, 0, sizeof(buffer)); // for automatically-allocated arrays
 
@@ -162,45 +181,66 @@ void Server::workWithClients() {
 
 	i = 2;
 	if (write(secondClientSocket, &i, sizeof(i)) < 0) {
+<<<<<<< HEAD
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 		perror(
 				"Failed to write 2 to the secondClientSocket after both connected");
 	}
 
 	strcpy(buffer, ""); // reset the buffer
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	memset(buffer, 0, sizeof(buffer)); // for automatically-allocated arrays
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+	memset(buffer, 0, sizeof(buffer)); // for automatically-allocated arrays
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 
 	// Connect them before the loop because we want to send "1 to player 1 & 2 to player 2
 	// Just once and not always.
 
 	// start the while loop until END was sent.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	while (checkIfcanContinue()) {
 =======
 
 	while (checkIfcanContinue()) {
 
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+
+	while (checkIfcanContinue()) {
+
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 		handleWithInput(firstClientSocket, secondClientSocket);
 		// check if still can continue:
 		if (!checkIfcanContinue()) {
 			break;
 		} else {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 			cout << "Passed to the other client to ask input from\n";
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+			cout << "Passed to the other client to ask input from\n";
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 			// can continue, so do it but reverse to pass from the second to the first.
 			handleWithInput(secondClientSocket, firstClientSocket);
 		}
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 	// when it comes to here, it means that we exited from the while and the game is ended.
 	closeServer(); // then close the socket's server and finish the game.
 
@@ -211,7 +251,10 @@ void Server::closeServer() {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 void Server::GetAndSendIntsToClient(int clientSocToGetFrom,
 		int clientSocToSend) {
 	int rowNum = 0, colNum = 0;
@@ -244,6 +287,9 @@ void Server::sendTurn(int clientSocToWriteInto, int row, int col) {
 	}
 }
 
+<<<<<<< HEAD
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 }
 

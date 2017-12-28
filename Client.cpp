@@ -71,6 +71,9 @@ DoubleCell Client::sendAndWriteToServer(Board* board) {
 
 	if (playerNum == 1) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 
 		if (board->canContinue('X')) {
 			cout << "Enter x\n";
@@ -108,6 +111,7 @@ DoubleCell Client::sendAndWriteToServer(Board* board) {
 			sendTurnToServer(x, y);
 			myCell = Cell(x, y, 'O');
 		}
+<<<<<<< HEAD
 =======
 		// print the board that the user will know the board before his desicion.
 		board->printBoard();
@@ -135,11 +139,14 @@ DoubleCell Client::sendAndWriteToServer(Board* board) {
 		sendTurnToServer(x, y);
 		myCell = Cell(x, y, 'O');
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 	}
 	this->turnsToPlay.setOtherPlayerMove(readenCell);
 	this->turnsToPlay.setCurrentPlayerMove(myCell);
 
 	// add here the print of the board.
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 	// first check the cells as follows:
@@ -147,6 +154,8 @@ DoubleCell Client::sendAndWriteToServer(Board* board) {
 	cout << "Other cell to play is: "; Cell o = this->turnsToPlay.getOtherPlayerMove(); o.printCell(); cout <<"\n";
 
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 
 	DoubleCell toReturn(readenCell, myCell);
 	return toReturn;
@@ -181,9 +190,12 @@ Cell Client::getCurrentTurn() {
 		throw "Error reading arg2";
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	cout << "I'm the client and I read:  (" << row << ", " << col << ") ";
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 	Cell c(row, col);
 	return c;
 }

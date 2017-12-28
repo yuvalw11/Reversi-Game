@@ -71,7 +71,10 @@ public:
 	void closeServer();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 	/**
 	 * read x,y from clientSocToGetFrom
 	 * write x,y to clientSocToSend.
@@ -84,7 +87,10 @@ public:
 	 */
 	void sendTurn(int clientSocToWriteInto, int row, int col);
 
+<<<<<<< HEAD
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 private:
 	// the files of the server are ip adress & port number.
 	int serverSocket;

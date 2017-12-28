@@ -27,12 +27,17 @@ public:
 	 */
 	GameRunner(Board b, Player& firstPlayer, Player& secondPlayer, char startingPlayer = 'X');
 	GameRunner(){secondPlayer = NULL; firstPlayer = NULL; currentPlayer = ' ';}
+<<<<<<< HEAD
 
 
 <<<<<<< HEAD
 
 =======
 >>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
+=======
+
+
+>>>>>>> 037fe1e349cf32e98323e8b2e6eb63c7fb82739e
 	/**
 	 * This function makes the next move for the current player.
 	 */
