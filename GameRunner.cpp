@@ -18,12 +18,19 @@ GameRunner::GameRunner(Board b, Player& firstP, Player& secondPl,
 	secondPlayer = &secondPl;
 }
 
-// come to this function with the knowlenge that we can continue in the game.
+// come to this function with the knowledge that we can continue in the game.
 // It means that at least for one player has a possible move to do.
 void std::GameRunner::playNextMove(Player &playerCurrentTurn) {
 	this->currentPlayer = playerCurrentTurn.getPlayerSign();
 
+<<<<<<< HEAD
 	if (board.possibleCellsToAssign(this->currentPlayer).empty()) {
+=======
+	Board t = this->board;
+	char signToSearchFor = playerCurrentTurn.getPlayerSign();
+	vector<Cell> possibleCells = t.possibleCellsToAssign(signToSearchFor);
+	if (possibleCells.empty()) {
+>>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
 		string userPassesChecking;
 		cout << "\n No Possible Moves. Play passes back to the other player.\n "
 				"Press any key to continue and then press on Enter.\n";
@@ -44,8 +51,9 @@ void std::GameRunner::playNextMove(Player &playerCurrentTurn) {
 
 		Cell userInput = playerCurrentTurn.chooseCell(&board,
 				this->currentPlayer);
-		gameLogic.inputAssignManager(this->currentPlayer, userInput);
-		this->board = *gameLogic.getBoard();
+		//gameLogic.inputAssignManager(this->currentPlayer, userInput);
+		this->board.inputAssignManager(this->currentPlayer, userInput);
+		//this->board = *gameLogic.getBoard();
 		this->board.printBoard();
 	}
 }
@@ -92,10 +100,18 @@ int GameRunner::menu() {
 	cout << "1) If you want to play vs other Human Person\n";
 	cout
 			<< "2) If you want to play vs AI player ( But..he is very smart :) ) \n";
+<<<<<<< HEAD
 	do {
 		getline(std::cin, lineInput);
 		if (cin.fail() || lineInput.length() != 1) {
 			cout << "Doesn't legal chioce. Choose 1 or 2, then press enter"
+=======
+	cout << "3) If you want to play via a remove player\n";
+	do {
+		getline(std::cin, lineInput);
+		if (cin.fail() || lineInput.length() != 1) {
+			cout << "Doesn't legal chioce. Choose 1 or 2 or 3, then press enter"
+>>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
 					<< std::endl;
 			cin.clear(); // reset the failed state
 		}
@@ -105,8 +121,15 @@ int GameRunner::menu() {
 
 	if (input == 1) {
 		cout << "\n No problem, You will play vs Human Player\n";
+<<<<<<< HEAD
 	} else {
 		cout << "\n No problem, You will play vs AI Player\n";
+=======
+	} else if (input == 2){
+		cout << "\n No problem, You will play vs AI Player\n";
+	} else {
+		cout << "\n No problem, You will play vs Remote Player\n";
+>>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
 	}
 	return input;
 }

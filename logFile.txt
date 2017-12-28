@@ -1,0 +1,125 @@
+commit 03520373de37f50f5c9a7b67a13cbc6d1e2884ac
+Author: ofir408 <ofir408@gmail.com>
+Date:   Mon Dec 11 00:50:20 2017 +0200
+
+    Add client & remote client helper
+
+commit c3aebecfe7e352a65d210002f6478292c889f0c8
+Author: ofir408 <ofir408@gmail.com>
+Date:   Wed Dec 6 11:54:06 2017 +0200
+
+    Added Server.cpp file
+
+commit 59131f8b07b700a6668805ae5b637b18020f0702
+Author: ofir408 <ofir408@gmail.com>
+Date:   Wed Dec 6 11:51:06 2017 +0200
+
+    Add the server h & cpp files
+
+commit 597958ef1251957dce1572df35e91cf19e8a8a21
+Author: ofir408 <ofir408@gmail.com>
+Date:   Tue Nov 28 19:13:24 2017 +0200
+
+    Last file, all works good. Update of both files togheter
+
+commit 7dcb8b51bc7be42da929a9dd98a6a686573bc3b9
+Author: ofir408 <ofir408@gmail.com>
+Date:   Sun Nov 26 17:40:45 2017 +0200
+
+    Modified README
+
+commit 1cf75a6b29b9772ba559c9970f1286ca11f80d4c
+Author: ofir408 <ofir408@gmail.com>
+Date:   Sun Nov 26 17:38:57 2017 +0200
+
+    Added README
+
+commit 92cb8e586e1f83849793a3f7aeaefbcbbc408683
+Author: Ofir408 <33639234+Ofir408@users.noreply.github.com>
+Date:   Sat Nov 25 19:01:46 2017 +0200
+
+    Unnecessary abstract class.
+
+commit 3298065e596d81455af87d2114b46c09adf37e38
+Author: Ofir408 <33639234+Ofir408@users.noreply.github.com>
+Date:   Sat Nov 25 18:58:32 2017 +0200
+
+    Removed the unnecessary abstract class that was.
+
+commit 5d3cdf472ad2e181f2352740371f13693a50ebbf
+Author: Ofir408 <33639234+Ofir408@users.noreply.github.com>
+Date:   Sat Nov 25 18:26:24 2017 +0200
+
+    Main added with the task , more description at the comment. Last version 25/11/17 18:20
+    
+    The main function works with the task that enables if the player want to play vs human player OR vs AI player.
+    Need to check the main method of the AI player. I have already checked his helper function and it looks good. But I think that after the whole tests we will know better.
+
+commit 70bc4ab75f1baa67620141f70bde82a746e8cfa0
+Author: Ofir408 <33639234+Ofir408@users.noreply.github.com>
+Date:   Fri Nov 24 19:13:11 2017 +0200
+
+    AI working better because I fixed some bugs. Read comment below.
+    
+    As I wrote, need testers in order to check the code.
+    I added a little tester with the name "Tester... ", take a look.
+    Moreover, need to improve the code design pattern.
+
+commit 051b03d80a2a2fdd6751aeb0c6daf1bc4d7cd8c7
+Author: Ofir408 <33639234+Ofir408@users.noreply.github.com>
+Date:   Fri Nov 24 00:26:06 2017 +0200
+
+    Add files via upload
+    
+    Last change at 24/11/2017 hour: 00:24.
+    We add in his version a player abstract class, and the start of the AI makeMove method implementation.
+
+commit 0389e201e5b8a97376ed7a7bea1dd89de987e731
+Merge: 9c0dd1d 7eb8d3a
+Author: yuvalw11 <33660985+yuvalw11@users.noreply.github.com>
+Date:   Tue Nov 14 18:00:09 2017 +0200
+
+    Merge pull request #2 from yuvalw11/secondBranch
+    
+    Update two
+
+commit 7eb8d3a2797860eeeafc50e806367ba8a0d9adf8
+Author: Ofir408 <33639234+Ofir408@users.noreply.github.com>
+Date:   Tue Nov 14 17:58:32 2017 +0200
+
+    Update README.md
+
+commit 9c0dd1d95cd8e107bd24af8022f4ca063019942c
+Merge: 823df82 5446113
+Author: yuvalw11 <33660985+yuvalw11@users.noreply.github.com>
+Date:   Tue Nov 14 17:55:51 2017 +0200
+
+    Merge pull request #1 from yuvalw11/new-brach
+    
+    Update README.md
+
+commit b62e0890fe8c706ba636fde679d42cb2181279e9
+Author: Ofir408 <33639234+Ofir408@users.noreply.github.com>
+Date:   Tue Nov 14 17:53:20 2017 +0200
+
+    Update two
+    
+    Try to check
+
+commit 5446113f78198dce3681115666f9d202f379d96b
+Author: yuvalw11 <33660985+yuvalw11@users.noreply.github.com>
+Date:   Tue Nov 14 17:50:47 2017 +0200
+
+    Update README.md
+
+commit 823df82e93e541e66d139ae848b854ffbcd1e8da
+Author: yuvalw11 <33660985+yuvalw11@users.noreply.github.com>
+Date:   Tue Nov 14 17:43:06 2017 +0200
+
+    Add files via upload
+
+commit d6fe6c76468e275ee176ebce8568a1d952dc9676
+Author: yuvalw11 <33660985+yuvalw11@users.noreply.github.com>
+Date:   Tue Nov 14 17:40:52 2017 +0200
+
+    Initial commit

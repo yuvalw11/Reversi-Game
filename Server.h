@@ -70,6 +70,21 @@ public:
 	 */
 	void closeServer();
 
+<<<<<<< HEAD
+=======
+	/**
+	 * read x,y from clientSocToGetFrom
+	 * write x,y to clientSocToSend.
+	 */
+	void GetAndSendIntsToClient(int clientSocToGetFrom, int clientSocToSend);
+
+	/**
+	 * int clientSocToWriteInto - to which client socket to write.
+	 * write the turn in cell (row, col).
+	 */
+	void sendTurn(int clientSocToWriteInto, int row, int col);
+
+>>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
 private:
 	// the files of the server are ip adress & port number.
 	int serverSocket;

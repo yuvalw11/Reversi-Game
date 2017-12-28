@@ -26,8 +26,13 @@ public:
 	 * The player character changes each turn.
 	 */
 	GameRunner(Board b, Player& firstPlayer, Player& secondPlayer, char startingPlayer = 'X');
+	GameRunner(){secondPlayer = NULL; firstPlayer = NULL; currentPlayer = ' ';}
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 0bf7b8a62706e6b806f89e0a8c10c8d4849dd80d
 	/**
 	 * This function makes the next move for the current player.
 	 */
@@ -70,18 +75,6 @@ private:
 	GameLogic gameLogic;
 	char currentPlayer;
 
-	/**
-	 * function that ask for input from the user.
-	 * returns the Cell that it gets from the user after cheking it's a valid one.
-	 */
-	//Cell askInput();
-	/**
-	 * Gets:
-	 * Cell inputCell - the Cell to check if it's valid cell.
-	 * returns true if the input of the user is valid -> he can put
-	 * his sign in this input Cell.
-	 */
-	//bool checkValidInput(Cell inputCell);
 	/**
 	 * switch the current player after the second made his move.
 	 * It means, change the currentPlayer field into GameRunner.
