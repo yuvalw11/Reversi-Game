@@ -2,7 +2,7 @@
  * JoinGameFunc.cpp
  *
  *  Created on: Dec 23, 2017
- *      Author: Ofir Ben-Shoham
+ *      Author: Ofir Ben-Shoham.
  */
 
 #include "JoinGameFunc.h"

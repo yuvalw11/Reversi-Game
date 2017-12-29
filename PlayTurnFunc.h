@@ -2,7 +2,7 @@
  * PlayTurnFunc.h
  *
  *  Created on: Dec 23, 2017
- *      Author: ofir
+ *      Author: Ofir Ben-Shoham.
  */
 
 #ifndef PLAYTURNFUNC_H_
