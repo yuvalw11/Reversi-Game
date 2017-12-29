@@ -2,7 +2,7 @@
  * ListGamesFunc.cpp
  *
  *  Created on: Dec 22, 2017
- *      Author: Ofir Ben-Shoham
+ *      Author: Ofir Ben-Shoham.
  */
 
 #include "ListGamesFunc.h"

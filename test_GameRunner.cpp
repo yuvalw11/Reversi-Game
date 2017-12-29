@@ -1,6 +1,7 @@
 #include "gtest.h"
 #include "GameRunner.h"
 #include "HumanPlayer.h"
+// update ver
 
 Board createBoard1ForExample();
 Board createBoard2ForExample();
